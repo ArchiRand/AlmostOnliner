@@ -15,7 +15,7 @@ public class CategoryDto {
 
     @NotEmpty
     @NotNull
-    @Length(min=5)
+    @Length(min=5, max = 50)
     private String name;
 
     private List<Product> products;

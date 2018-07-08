@@ -2,7 +2,7 @@ package soso.production.controller;
 
 import soso.production.model.User;
 import soso.production.model.dto.LoginDto;
-import soso.production.service.IUserService;
+import soso.production.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;

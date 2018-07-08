@@ -2,7 +2,7 @@ package soso.production.controller;
 
 import soso.production.model.Phone;
 import soso.production.model.dto.PhoneDto;
-import soso.production.service.IPhoneService;
+import soso.production.service.interfaces.IPhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

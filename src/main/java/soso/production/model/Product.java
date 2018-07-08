@@ -11,10 +11,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product")
 public class Product implements Serializable, Persistable {
+
+    private static final long serialVersionUID = -9091901553086155422L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -54,6 +58,7 @@ public class Product implements Serializable, Persistable {
         this.description = description;
     }
 
+    // <editor-fold desc="getters & setters">
     public Long getId() {
         return id;
     }
@@ -97,5 +102,34 @@ public class Product implements Serializable, Persistable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="hashCode & equals">
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(price, product.price) &&
+                Objects.equals(category, product.category);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, description, price, category);
+    }
+
+    // </editor-fold>
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                '}';
     }
 }

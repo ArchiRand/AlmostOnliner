@@ -1,4 +1,4 @@
-package soso.production.service;
+package soso.production.service.impl;
 
 import soso.production.model.User;
 import soso.production.repository.UserRepository;
@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+import soso.production.service.interfaces.IUserService;
 
 @Transactional
 @Service("userService")

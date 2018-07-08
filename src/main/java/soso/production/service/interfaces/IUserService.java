@@ -1,4 +1,4 @@
-package soso.production.service;
+package soso.production.service.interfaces;
 
 import soso.production.model.User;
 

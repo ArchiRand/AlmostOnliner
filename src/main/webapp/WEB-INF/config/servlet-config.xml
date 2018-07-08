@@ -48,20 +48,4 @@
             </list>
         </property>
     </bean>
-
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="ru"/>
-    </bean>
-
-    <!--Данный бин позвоялет прикрутить messages.property-->
-    <!--Теперь Spring читает файлики
-    /WEB-INF/messages/messages.properties,
-    /WEB-INF/messages/messages_ru.properties и т.д.
-    Если к моменту запроса они обновились, то перечитывает заново.
-    И к томуже читает в указанной кодировке, что избавляет нас от запуска всяких лишних программ.-->
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="messages"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-    </bean>
-
 </beans>

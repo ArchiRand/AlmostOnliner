@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -27,34 +27,34 @@
         <div class="col-md-12">
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">Дата</th>
-                    <th scope="col">Пользователь</th>
-                    <th scope="col">Товары</th>
-                    <th scope="col">Адрес</th>
-                    <th scope="col">Номер телефона</th>
-                    <th scope="col">Итого</th>
-                </tr>
+                    <tr>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Пользователь</th>
+                        <th scope="col">Товары</th>
+                        <th scope="col">Адрес</th>
+                        <th scope="col">Номер телефона</th>
+                        <th scope="col">Итого</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>${cartReport.date}</td>
-                    <td>${cartReport.email}</td>
-                    <td>
-                        <ul class="list-group">
-                            <c:forEach items="${products}" var="product">
-                                <li class="list-group-item">${product.name} | ${product.price} BYN</li>
-                            </c:forEach>
-                        </ul>
-                    </td>
-                    <td>
-                        ${address.city} ${address.street}<br>
-                        ${address.buildingNumber}<br>
-                        ${address.postalCode}<br>
-                    </td>
-                    <td>${cartReport.phoneNumber}</td>
-                    <td>${cartReport.fullPrice} BYN</td>
-                </tr>
+                    <tr>
+                        <td>${adminCard.date}</td>
+                        <td>${adminCard.email}</td>
+                        <td>
+                            <ul class="list-group">
+                                <c:forEach items="${products}" var="product">
+                                    <li class="list-group-item">${product.name} | ${product.price} BYN</li>
+                                </c:forEach>
+                            </ul>
+                        </td>
+                        <td>
+                            ${address.city} ${address.street}<br>
+                            ${address.buildingNumber}<br>
+                            ${address.postalCode}<br>
+                        </td>
+                        <td>${adminCard.phoneNumber}</td>
+                        <td>${adminCard.fullPrice} BYN</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

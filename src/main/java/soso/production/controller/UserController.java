@@ -1,8 +1,8 @@
 package soso.production.controller;
 
-import soso.production.service.IAddressService;
-import soso.production.service.ICartService;
-import soso.production.service.IPhoneService;
+import soso.production.service.interfaces.IAddressService;
+import soso.production.service.interfaces.ICartService;
+import soso.production.service.interfaces.IPhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

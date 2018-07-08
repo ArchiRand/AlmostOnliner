@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/resources/custom.css" type="text/css"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SpringShop</title>
+    <title>Почти онлайнер</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
@@ -19,6 +19,10 @@
             var categories = document.getElementById("categories");
             var selected = categories.selectedOptions[0].value;
             var url = "http://localhost:8080/" + selected;
+            // Метод Location.replace() заменяет текущий ресурс на новый по URL,
+            // указанному в качестве параметра.
+            // при использовании replace() текущая страница не будет сохранена в
+            // History, и пользователь не сможет использовать кнопку назад, чтобы вернуться к ней.
             location.replace(url);
         }
 
@@ -37,7 +41,6 @@
                 textField.innerHTML = categoryName;
             }
         }
-
         function addItemToCart(id) {
             // Объект XMLHttpRequest (или, как его кратко называют, «XHR»)
             // дает возможность из JavaScript делать
@@ -55,10 +58,8 @@
             // которая вызывается автоматически каждый раз,
             // когда изменяется свойство readyState
             request.onreadystatechange = function (event) {
-                console.log("Test1");
                 // Если код ответа 200(Ок) и readyState = 4 (запрос завершен и ответ готов) то...
                 if (request.readyState === 4 && (request.status === 200)) {
-                    console.log("Test2");
                     // ... парсим ответ из контроллера...
                     var responseJSON = JSON.parse(request.responseText);
                     if (responseJSON.completed = 'true') {
@@ -76,14 +77,13 @@
         $(document).ready(
             function () {
                 displayCurrentCategory();
-
                 $.getJSON('http://localhost:8080/json/categories.json', {
                     ajax: 'true'
                 }, function (data) {
-                    var html = '<option value="?categoryName=All">-- Все --</option>';
+                    var html = '<option value="?category=All">-- Все --</option>';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<option value="?categoryName=' + data[i].name + '">'
+                        html += '<option value="?category=' + data[i].name + '">'
                             + data[i].name + '</option>';
                     }
                     html += '</option>';
@@ -102,7 +102,7 @@
                         <span class="nav-link">Корзина: ${cartSize} </span>
                     </li>
                     <li class="nav-item">
-                        <span class="nav-link">Сумма: $${cart.fullPrice} </span>
+                        <span class="nav-link">Сумма: ${cart.totalPrice} BYN</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/cart/summary">Оформить покупку</a>
@@ -162,11 +162,11 @@
                                 <p class="card-text">${product.description}</p>
                                 <sec:authorize access="hasRole('USER')">
                                     <a href="#" class="btn btn-primary"
-                                       onclick="addItemToCart(${product.id})">Купить</a>
+                                       onclick="addItemToCart(${product.id})">Добавить в корзину</a>
                                 </sec:authorize>
 
                                 <sec:authorize access="!hasRole('USER')">
-                                    <a href="/user/login" class="btn btn-primary">Войдите в систему чтобы купить</a>
+                                    <a href="/user/login" class="btn btn-primary">Войдите, чтобы добавить в корзину</a>
                                 </sec:authorize>
                             </div>
                             <div class="card-footer">
@@ -176,7 +176,7 @@
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
-                    <p class="text-center">Список покупок пуст</p>
+                    <p class="text-center">Список товаров пуст</p>
                 </c:otherwise>
             </c:choose>
         </div>

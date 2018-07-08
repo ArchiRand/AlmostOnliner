@@ -1,15 +1,14 @@
-package soso.production.service;
+package soso.production.service.interfaces;
 
 import soso.production.model.Cart;
-import soso.production.model.dto.CartReportDto;
+import soso.production.model.dto.AdminCardDto;
 
 import java.util.List;
 
 public interface ICartService {
     Cart save(Cart cart);
     List<Cart> findAllCartsByOwnerEmail(String email);
-    List<Cart> findAll();
-    List<CartReportDto> findAllCartReports();
-    CartReportDto findCartReportByCartId(Long id);
+    List<AdminCardDto> findAllAdminCart();
+    AdminCardDto findAdminCartByCartId(Long id);
     Cart findCartById(Long id);
 }

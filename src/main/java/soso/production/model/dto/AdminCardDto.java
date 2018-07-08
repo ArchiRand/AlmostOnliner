@@ -3,16 +3,17 @@ package soso.production.model.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class CartReportDto {
+public class AdminCardDto {
     private Long id;
     private Date date;
     private BigDecimal fullPrice;
     private String email;
     private String phoneNumber;
 
-    public CartReportDto() {}
-    public CartReportDto(Long id, Date date, BigDecimal fullPrice,
-                         String email, String phoneNumber) {
+    public AdminCardDto() {}
+
+    public AdminCardDto(Long id, Date date, BigDecimal fullPrice,
+                        String email, String phoneNumber) {
         this.id = id;
         this.date = date;
         this.fullPrice = fullPrice;

@@ -31,7 +31,7 @@
         <div class="col-md-10 offset-md-1">
             <h2 class="text-center">Совершенные покупки:</h2>
             <c:choose>
-                <c:when test="${not empty allReports}">
+                <c:when test="${not empty allOrders}">
                     <table class="table">
                         <thead>
                         <tr>
@@ -43,13 +43,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${allReports}" var="report">
+                        <c:forEach items="${allOrders}" var="order">
                             <tr>
-                                <td>${report.date}</td>
-                                <td>${report.email}</td>
-                                <td>${report.phoneNumber}</td>
-                                <td>${report.fullPrice} BYN</td>
-                                <td><a href="/admin/cart/${report.id}" class="btn btn-primary">Просмотреть карзину</a></td>
+                                <td>${order.date}</td>
+                                <td>${order.email}</td>
+                                <td>${order.phoneNumber}</td>
+                                <td>${order.fullPrice} BYN</td>
+                                <td><a href="/admin/cart/${order.id}" class="btn btn-primary">Просмотреть корзину</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

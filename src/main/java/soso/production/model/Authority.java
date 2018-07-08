@@ -3,10 +3,14 @@ package soso.production.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name="authority")
-public class Authority {
+public class Authority implements Serializable {
+
+    private static final long serialVersionUID = -8315598785700378676L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +26,8 @@ public class Authority {
         this.authority = authority;
     }
 
+    // <editor-fold desc="getters & setters">
+
     public Long getId() {
         return id;
     }
@@ -36,5 +42,31 @@ public class Authority {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="hashCode & equals">
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Authority)) return false;
+        Authority authority1 = (Authority) o;
+        return Objects.equals(id, authority1.id) &&
+                Objects.equals(authority, authority1.authority);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, authority);
+    }
+
+    // </editor-fold>
+
+    @Override
+    public String toString() {
+        return "Authority{" +
+                "id=" + id +
+                '}';
     }
 }

@@ -61,7 +61,6 @@
                 </div>
                 <input type="submit" value="Добавить"/>
             </form:form>
-
             <p class="text-center"><a href="/admin/productpanel">Вернуться назад</a></p>
         </div>
     </div>

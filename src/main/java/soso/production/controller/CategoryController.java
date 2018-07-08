@@ -7,9 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import soso.production.model.Category;
-import soso.production.model.dto.CategoryDto;
-import soso.production.service.ICategoryService;
-import soso.production.service.IProductService;
+import soso.production.service.interfaces.ICategoryService;
+import soso.production.service.interfaces.IProductService;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -87,23 +86,4 @@ public class CategoryController {
         return "redirect:/admin/categorypanel";
     }
 
-    private Category _fromDtoToEntity(CategoryDto categoryDto) {
-        Category category = new Category();
-        if (categoryDto.getId() != null) {
-            Category origin = categoryService.getCategoryById(categoryDto.getId());
-            if (origin.getProduct() != null) {
-                category.setProduct(origin.getProduct());
-            }
-        }
-        category.setId(categoryDto.getId());
-        category.setName(categoryDto.getName());
-        return category;
-    }
-
-    private CategoryDto _fromEntityToDto(Category category) {
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setId(category.getId());
-        categoryDto.setName(category.getName());
-        return categoryDto;
-    }
 }

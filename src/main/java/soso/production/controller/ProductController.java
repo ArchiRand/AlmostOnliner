@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import soso.production.model.Category;
 import soso.production.model.Product;
 import soso.production.model.dto.ProductDto;
-import soso.production.service.ICategoryService;
-import soso.production.service.IProductService;
+import soso.production.service.interfaces.ICategoryService;
+import soso.production.service.interfaces.IProductService;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class ProductController {
 
     @RequestMapping(value = "/admin/product", method = RequestMethod.POST)
     public String addNewProduct(@Valid @ModelAttribute("product") ProductDto productDto, BindingResult result) {
-        return _productSerise(productDto, result);
+        return _productService(productDto, result);
     }
 
     @RequestMapping(value = "/admin/product/{id}", method = RequestMethod.DELETE, produces = "application/json")
@@ -64,10 +64,10 @@ public class ProductController {
 
     @RequestMapping(value = "/admin/edit_product/{id}", method = RequestMethod.POST)
     public String updateProduct(@Valid @ModelAttribute("product") ProductDto productDto, BindingResult result) {
-        return _productSerise(productDto, result);
+        return _productService(productDto, result);
     }
 
-    private String _productSerise(ProductDto productDto, BindingResult result) {
+    private String _productService(ProductDto productDto, BindingResult result) {
         if (result.hasErrors()) {
             return "product/addProduct";
         }
@@ -100,4 +100,5 @@ public class ProductController {
         productDto.setPrice(product.getPrice());
         return productDto;
     }
+
 }

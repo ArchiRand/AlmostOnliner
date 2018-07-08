@@ -1,6 +1,7 @@
 package soso.production.model.dto;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -14,12 +15,12 @@ public class ProductDto {
 
     @NotEmpty
     @NotNull
-    @Length(min=5)
+    @Length(min=5, max = 50)
     private String name;
 
     @NotEmpty
     @NotNull
-    @Length(min=10)
+    @Length(min=10, max = 1000)
     private String description;
 
     @NotNull

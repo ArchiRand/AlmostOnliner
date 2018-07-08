@@ -17,11 +17,13 @@ public class AddressDto {
     @Length(min=1, max=20)
     private String buildingNumber;
 
-    @NotEmpty
     @Length(min=6, max=6)
     private String postalCode;
 
-    public AddressDto(){}
+    public AddressDto(){
+
+    }
+
     public AddressDto(String street, String city, String buildingNumber, String postalCode) {
         this.street = street;
         this.city = city;

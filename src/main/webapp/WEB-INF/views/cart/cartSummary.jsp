@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/resources/custom.css" type="text/css"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Cart Summary</title>
+    <title>Корзина</title>
 </head>
 <body>
 <div class="container">
@@ -17,26 +17,26 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <h2 class="text-center">Cart Summary</h2>
+            <h2 class="text-center">Корзина</h2>
         </div>
     </div>
     <div class="alert alert-danger" style="display:none;" id="error">
-        <p class="text-center">Не указан адрес пользователя! Невозможно законить операцию.</p>
+        <p class="text-center">Укажите ваш адрес, иначе ничего не получится.</p>
     </div>
     <div class="row margin-top30">
         <div class="col-md-8 offset-md-2">
             <c:choose>
-                <c:when test="${not empty cart.products}">
-                <table class="table">
-                    <thead>
+                <c:when test="${not empty cart.productList}">
+                    <table class="table">
+                        <thead>
                         <tr>
                             <th scope="col">Название</th>
                             <th scope="col">Цена</th>
                             <th scope="col">Действие</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${cart.products}" var="product">
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${cart.productList}" var="product">
                             <tr>
                                 <td>${product.name}</td>
                                 <td>${product.price} BYN</td>
@@ -55,18 +55,18 @@
     <div class="row margin-top30">
         <div class="col-md-6 offset-md-2">
             <c:choose>
-                <c:when test="${not empty cart.products}">
-                    <a href="#" onclick="finalize()" class="btn btn-success">Завершение покупки</a>
+                <c:when test="${not empty cart.productList}">
+                    <a href="#" onclick="finalize()" class="btn btn-success">Купить</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="#" class="btn btn-secondary disabled">Завершение покупки</a>
+                    <a href="#" class="btn btn-secondary disabled">Купить</a>
                 </c:otherwise>
             </c:choose>
 
             <a href="/" class="btn btn-light">Назад</a>
         </div>
         <div class="col-md-4">
-            <p>Итого: ${cart.fullPrice} BYN</p>
+            <p>Итого: ${cart.totalPrice} BYN</p>
         </div>
     </div>
 </div>
@@ -98,8 +98,6 @@
         var url="http://localhost:8080/cart/finalize";
         var header ="${_csrf.headerName}";
         var token = "${_csrf.token}";
-
-
         request.open("POST", url, true);
         request.setRequestHeader(header, token);
         request.onreadystatechange = function(event) {

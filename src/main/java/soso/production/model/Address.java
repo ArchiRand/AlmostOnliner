@@ -1,10 +1,15 @@
 package soso.production.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name="address")
-public class Address {
+public class Address implements Serializable {
+
+    private static final long serialVersionUID = -2800423598858176466L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +24,10 @@ public class Address {
     @JoinColumn(name="user_id")
     private User addressOwner;
 
-    public Address() {}
+    public Address() {
+
+    }
+
     public Address(String city, String street, String buildingNumber, String postalCode) {
         this.city = city;
         this.street = street;
@@ -27,6 +35,7 @@ public class Address {
         this.postalCode = postalCode;
     }
 
+    // <editor-fold desc="getters & setters">
     public Long getId() {
         return id;
     }
@@ -74,11 +83,34 @@ public class Address {
     public void setAddressOwner(User addressOwner) {
         this.addressOwner = addressOwner;
     }
+    // </editor-fold>
 
-    public boolean isFullAddressSet() {
-        return  (this.getId() != null) &&
-                (this.getCity()!= null) &&
-                (this.getBuildingNumber() != null) &&
-                (this.getStreet() != null);
+    // <editor-fold desc="hashCode & equals">
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return Objects.equals(id, address.id) &&
+                Objects.equals(street, address.street) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(buildingNumber, address.buildingNumber) &&
+                Objects.equals(postalCode, address.postalCode) &&
+                Objects.equals(addressOwner, address.addressOwner);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, street, city, buildingNumber, postalCode, addressOwner);
+    }
+
+    // </editor-fold>
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                '}';
     }
 }

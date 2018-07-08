@@ -1,4 +1,4 @@
-package soso.production.service;
+package soso.production.service.impl;
 
 import soso.production.model.Phone;
 import soso.production.repository.PhoneRepository;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+import soso.production.service.interfaces.IPhoneService;
 
 @Transactional
 @Service("phoneService")

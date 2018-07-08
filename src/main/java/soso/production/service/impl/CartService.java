@@ -1,12 +1,14 @@
-package soso.production.service;
+package soso.production.service.impl;
 
 import soso.production.model.Cart;
-import soso.production.model.dto.CartReportDto;
+import soso.production.model.dto.AdminCardDto;
 import soso.production.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+import soso.production.service.interfaces.ICartService;
+
 import java.util.List;
 
 @Transactional
@@ -27,17 +29,12 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public List<Cart> findAll() {
-        return cartRepository.findAll();
-    }
-
-    @Override
-    public List<CartReportDto> findAllCartReports() {
+    public List<AdminCardDto> findAllAdminCart() {
         return cartRepository.findAllCartReports();
     }
 
     @Override
-    public CartReportDto findCartReportByCartId(Long id) {
+    public AdminCardDto findAdminCartByCartId(Long id) {
         return cartRepository.findCartReportByCartId(id);
     }
 

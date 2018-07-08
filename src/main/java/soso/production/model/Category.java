@@ -10,10 +10,13 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "category")
 public class Category implements Serializable, Persistable {
+
+    private static final long serialVersionUID = 354369044324982088L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,7 @@ public class Category implements Serializable, Persistable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category", orphanRemoval = true)
     private List<Product> products;
 
+    // <editor-fold desc="getters & setters">
     public Long getId() {
         return id;
     }
@@ -61,5 +65,30 @@ public class Category implements Serializable, Persistable {
             this.products.clear();
             this.products.addAll(products);
         }
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="hashCode & equals">
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        Category category = (Category) o;
+        return Objects.equals(id, category.id) &&
+                Objects.equals(name, category.name) &&
+                Objects.equals(products, category.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, products);
+    }
+    // </editor-fold>
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                '}';
     }
 }
