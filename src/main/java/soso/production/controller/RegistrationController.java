@@ -1,10 +1,5 @@
 package soso.production.controller;
 
-import soso.production.model.Authority;
-import soso.production.model.User;
-import soso.production.model.dto.UserDto;
-import soso.production.service.interfaces.IAuthorityService;
-import soso.production.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +8,13 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import soso.production.model.Authority;
+import soso.production.model.User;
+import soso.production.model.dto.UserDto;
+import soso.production.service.interfaces.IAuthorityService;
+import soso.production.service.interfaces.IUserService;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 
 @Controller("registerController")
 public class RegistrationController {
@@ -37,7 +36,10 @@ public class RegistrationController {
         if (result.hasErrors()) {
             return "login_reg/register";
         }
-
+        if (!_validatePassword(userDto)) {
+            result.addError(new FieldError("registerForm", "password2", "Неправильно подтвердили пароль!"));
+            return "login_reg/register";
+        }
         Authority authority = authorityService.getByAuthority("ROLE_USER");
         if (authority == null) {
             authority = new Authority("ROLE_USER");
@@ -47,12 +49,17 @@ public class RegistrationController {
             user = new User();
             user.setEmail(userDto.getEmail());
             user.setPassword(userDto.getPassword());
-            user.setAuthorities(Arrays.asList(authority));
+            user.setAuthoritie(authority);
+            authority.setUser(user);
             userService.save(user);
             return "login_reg/successRegister";
         } else {
-            result.addError(new FieldError("registerForm", "email", "User with that email already exists."));
+            result.addError(new FieldError("registerForm", "email", "Пользователь с таким email уже существует"));
             return "login_reg/register";
         }
+    }
+
+    private boolean _validatePassword(UserDto userDto) {
+        return userDto.getPassword().equals(userDto.getMatchingPassword());
     }
 }

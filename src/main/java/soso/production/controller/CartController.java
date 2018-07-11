@@ -1,5 +1,6 @@
 package soso.production.controller;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,7 @@ public class CartController {
         Map<String, String> response = new HashMap<>();
         int beforeAdd = cartComponent.getProductList().size();
         Product product = productService.getProductById(id);
+        Hibernate.initialize(product);
         cartComponent.addProduct(product);
         if (cartComponent.getProductList().size() > beforeAdd) {
             response.put("completed", "true");
@@ -105,6 +107,7 @@ public class CartController {
         User user = userService.getByEmail(principal.getName());
         if (!cartComponent.getProductList().isEmpty()) {
             Cart newCart = new Cart(cartComponent.getProductList(), cartComponent.getTotalPrice(), user);
+            cartService.save(newCart);
             user.getCarts().add(newCart);
             userService.save(user);
             cartComponent.clear();
@@ -124,4 +127,5 @@ public class CartController {
         model.addAttribute("adminCard", adminCard);
         return "cart/cartInformation";
     }
+
 }

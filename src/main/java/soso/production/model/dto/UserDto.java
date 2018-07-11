@@ -1,22 +1,18 @@
 package soso.production.model.dto;
 
-import soso.production.model.validators.MatchingPasswords;
-import soso.production.model.validators.ValidEmail;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@MatchingPasswords
 public class UserDto {
     @NotNull
     @NotEmpty
-    @ValidEmail
     private String email;
 
     @NotNull
     @NotEmpty
-    @Length(min=6)
+    @Length(min = 5)
     private String password;
 
     @NotNull

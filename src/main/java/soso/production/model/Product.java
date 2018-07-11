@@ -9,8 +9,11 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -111,17 +114,12 @@ public class Product implements Serializable, Persistable {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) &&
-                Objects.equals(name, product.name) &&
-                Objects.equals(description, product.description) &&
-                Objects.equals(price, product.price) &&
-                Objects.equals(category, product.category);
+        return Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, name, description, price, category);
+        return Objects.hash(name);
     }
 
     // </editor-fold>

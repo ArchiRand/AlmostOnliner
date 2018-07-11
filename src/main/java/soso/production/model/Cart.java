@@ -3,9 +3,7 @@ package soso.production.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "cart")
@@ -18,11 +16,11 @@ public class Cart implements Serializable {
     private Long id;
     private Date date;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "CART_PRODUCTS",
-            joinColumns = @JoinColumn(name = "cart_fk", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_fk", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
 

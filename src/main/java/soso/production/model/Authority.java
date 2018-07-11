@@ -20,6 +20,10 @@ public class Authority implements Serializable {
     @NotEmpty
     private String authority;
 
+    @OneToOne
+    @MapsId
+    private User user;
+
     public Authority() {}
 
     public Authority(String authority) {
@@ -34,6 +38,14 @@ public class Authority implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getAuthority() {
@@ -52,13 +64,14 @@ public class Authority implements Serializable {
         if (!(o instanceof Authority)) return false;
         Authority authority1 = (Authority) o;
         return Objects.equals(id, authority1.id) &&
-                Objects.equals(authority, authority1.authority);
+                Objects.equals(authority, authority1.authority)&&
+                Objects.equals(user, authority1.user);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, authority);
+        return Objects.hash(id, authority, user);
     }
 
     // </editor-fold>

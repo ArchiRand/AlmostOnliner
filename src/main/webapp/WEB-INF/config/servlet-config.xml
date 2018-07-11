@@ -27,7 +27,6 @@
                         <constructor-arg>
                             <map>
                                 <entry key="json" value="application/json"/>
-                                <entry key="xml" value="application/xml"/>
                             </map>
                         </constructor-arg>
                     </bean>

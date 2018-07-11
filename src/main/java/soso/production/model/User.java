@@ -1,7 +1,5 @@
 package soso.production.model;
 
-import org.springframework.data.domain.Persistable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,15 +26,10 @@ public class User implements Serializable {
     @NotEmpty
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "USERS_AUTHORITIES",
-            joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_fk", referencedColumnName = "id")
-    )
-    private List<Authority> authorities;
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true, mappedBy = "user")
+    private Authority authoritie;
 
-    @OneToMany(mappedBy = "cartOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "cartOwner", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Cart> carts;
 
     @OneToOne(mappedBy = "addressOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -46,7 +39,7 @@ public class User implements Serializable {
     private Phone phone;
 
     public User() {
-        this.authorities = new ArrayList<>();
+        this.authoritie = new Authority();
         setAddress(new Address());
         setPhone(new Phone());
         setCarts(new ArrayList<>());
@@ -58,9 +51,9 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String email, String password, List<Authority> authorities) {
+    public User(String email, String password, Authority authoritie) {
         this(email, password);
-        this.authorities = authorities;
+        this.authoritie = authoritie;
     }
 
     // <editor-fold desc="getters & setters">
@@ -88,12 +81,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public List<Authority> getAuthorities() {
-        return authorities;
+    public Authority getAuthoritie() {
+        return authoritie;
     }
 
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
+    public void setAuthoritie(Authority authoritie) {
+        this.authoritie = authoritie;
     }
 
     public Address getAddress() {
@@ -131,7 +124,7 @@ public class User implements Serializable {
         return Objects.equals(id, user.id) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(authorities, user.authorities) &&
+                Objects.equals(authoritie, user.authoritie) &&
                 Objects.equals(carts, user.carts) &&
                 Objects.equals(address, user.address) &&
                 Objects.equals(phone, user.phone);
@@ -140,7 +133,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, email, password, authorities, carts, address, phone);
+        return Objects.hash(id, email, password, authoritie, carts, address, phone);
     }
 
     // </editor-fold>

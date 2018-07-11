@@ -26,7 +26,7 @@
             <password-encoder ref="passwordEncoder" hash="bcrypt"/>
             <jdbc-user-service data-source-ref="dataSource"
                                users-by-username-query='SELECT email, password, true FROM user WHERE email=?'
-                               authorities-by-username-query="SELECT u.email, auth.authority FROM USER u, AUTHORITY auth, USERS_AUTHORITIES ua WHERE ua.user_fk=u.id AND ua.authority_fk=auth.id AND u.email=?"/>
+                               authorities-by-username-query="select u.email, a.authority from user u, authority a where a.user_id=u.id and u.email=?"/>
         </authentication-provider>
     </authentication-manager>
 </beans:beans>

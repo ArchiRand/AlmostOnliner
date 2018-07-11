@@ -1,6 +1,5 @@
 package soso.production.model.dto;
 
-import soso.production.model.validators.ValidEmail;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotNull;
 public class LoginDto {
     @NotEmpty
     @NotNull
-    @ValidEmail
     private String email;
 
     @NotNull

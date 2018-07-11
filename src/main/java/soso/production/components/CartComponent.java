@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
  * и живет до того момента, пока юзер не разлогинется.
  * Предназначен для хранения информации о количестве товаров
  * в корзине для текущего пользователя и их общей стоимости.
- *
+ * <p>
  * Передается как аттрибут в форму shop.jsp
  * и при добавлении или удалении товаров из корзины они
  * в первую очередь меняются здесь.
@@ -31,7 +31,9 @@ public class CartComponent {
     }
 
     public void addProduct(Product product) {
-        productList.add(product);
+        if (!productList.contains(product)) {
+            productList.add(product);
+        }
         this.totalPrice = totalPrice.add(product.getPrice());
     }
 
